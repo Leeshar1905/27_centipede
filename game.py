@@ -10,7 +10,13 @@ MUSHROOM_HP = 4
 
 def mushroom_color(hp):
     """Return an (r, g, b) colour for a mushroom with the given hit points, or None for the default."""
-    pass
+    colors = {
+        4: (60, 200, 80),
+        3: (170, 200, 60),
+        2: (240, 150, 50),
+        1: (220, 60, 60),
+    }
+    return colors.get(hp)
 
 
 def on_segment_hit(segment, score):
