@@ -31,8 +31,10 @@ def on_segment_hit(segment, score):
 
 
 def wave_speed_bonus(wave):
-    """Return an extra tick-rate multiplier for centipede segments at the given wave, or None for the default speed."""
-    pass
+    """Return a speed multiplier that increases by 15% for each wave after Wave 1."""
+    if wave <= 1:
+        return None
+    return 1 + 0.15 * (wave - 1)
 
 
 class Segment:
@@ -41,9 +43,11 @@ class Segment:
 
     def step(self, mushrooms):
         nxt = self.col + self.dx
+
         if nxt < 0 or nxt >= COLS or (self.row, nxt) in mushrooms:
             self.row += self.dy
             self.dx = -self.dx
+
             if self.row >= ROWS - 1:
                 self.row, self.dy = ROWS - 1, -1
             elif self.row <= ZONE_TOP and self.dy < 0:
